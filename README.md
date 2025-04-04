@@ -19,6 +19,8 @@ Useful for personal reflection, habit tracking, or as a printable life calendar.
 - Printable layout with non-essential elements hidden on print.
 - Color-coded cells to show elapsed time.
 
+![screenshot](https://github.com/user-attachments/assets/fd58cd1b-eb27-4d67-abd4-45b4c2f75dd2)
+
 ## Usage
 
 1. Open the HTML file in a browser.
@@ -32,3 +34,4 @@ Useful for personal reflection, habit tracking, or as a printable life calendar.
 - Each cell represents approximately one week.
 - Months are simplified to always show 4 weeks for visual clarity.
 - To print, use your browser’s print feature — interface elements are hidden automatically.
+
