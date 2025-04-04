@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Life in Weeks (by Months)</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td, th {
+      width: 12px;
+      height: 12px;
+      border: 1px solid #ccc;
+      padding: 0;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    .filled {
+      background-color: #0c3;
+    }
+
+    .year-label {
+      text-align: right;
+      padding-right: 10px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    @media print {
+      button, input, label, h2, select {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h2 id="title">Life in Weeks (by Months)</h2>
+
+<label>
+  <span id="birthLabel">Date of Birth:</span>
+  <input type="date" id="birthDate">
+</label>
+
+<label>
+  <span id="currentLabel">Current Date:</span>
+  <input type="date" id="currentDate">
+</label>
+
+<button onclick="generateTable()" id="buildButton">Generate Table</button>
+
+<br><br>
+<table id="lifeTable"></table>
+
+<script>
+
+function generateTable() {
+  const birthDate = new Date(document.getElementById("birthDate").value);
+  const currentDate = new Date(document.getElementById("currentDate").value);
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const table = document.getElementById("lifeTable");
+  table.innerHTML = "";
+
+  const monthHeader = document.createElement("tr");
+  monthHeader.appendChild(document.createElement("th")).rowSpan = 2;
+  for (let m = 0; m < 12; m++) {
+    const th = document.createElement("th");
+    th.textContent = months[m];
+    th.colSpan = 4;
+    monthHeader.appendChild(th);
+  }
+  table.appendChild(monthHeader);
+
+  const weekHeader = document.createElement("tr");
+  for (let m = 0; m < 12; m++) 
+    for (let w = 1; w <= 4; w++) 
+      weekHeader.appendChild(document.createElement("th")).textContent = w;
+  table.appendChild(weekHeader);
+
+  const totalYears = 90;
+  const birthYear = birthDate.getFullYear();
+
+  for (let yearOffset = 0; yearOffset < totalYears; yearOffset++) {
+    const row = document.createElement("tr");
+    const yearLabel = document.createElement("td");
+	const year = birthYear + yearOffset;
+    yearLabel.className = "year-label";
+    yearLabel.textContent = year;
+    row.appendChild(yearLabel);
+
+    for (let month = 0; month < 12; month++)
+      for (let week = 0; week < 4; week++) {
+        const cell = document.createElement("td");
+        const cellDate = new Date(year, month, week * 7 + 1);
+        if (cellDate >= birthDate && cellDate <= currentDate) cell.classList.add("filled");
+        row.appendChild(cell);
+      }
+    table.appendChild(row);
+  }
+}
+
+  // Set today's date as default
+  document.getElementById("currentDate").value = new Date().toISOString().split('T')[0];
+</script>
+
+</body>
+</html>
+
